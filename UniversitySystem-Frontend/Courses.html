@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Management - EduManage</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+    </script>
+
+    <!-- Font Geist -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+        }
+
+        .modal-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgb(71 85 105);
+            margin-bottom: 6px;
+        }
+
+        .dark .modal-label {
+            color: rgb(148 163 184);
+        }
+
+        .modal-input {
+            width: 100%;
+            height: 40px;
+            padding: 0 12px;
+            border-radius: 12px;
+            background: rgb(248 250 252);
+            border: 1px solid rgb(226 232 240);
+            font-size: 13px;
+            color: rgb(30 41 59);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .dark .modal-input {
+            background: rgb(2 6 23);
+            border-color: rgb(30 41 59);
+            color: rgb(241 245 249);
+        }
+
+        .modal-input:focus {
+            border-color: rgb(99 102 241);
+            box-shadow: 0 0 0 1px rgb(99 102 241 / 20%);
+        }
+
+        .modal-input::placeholder {
+            color: rgb(148 163 184);
+        }
+
+        .modal-input option {
+            background: white;
+            color: rgb(30 41 59);
+        }
+
+        .dark .modal-input option {
+            background: rgb(15 23 42);
+            color: rgb(241 245 249);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col md:flex-row antialiased transition-colors duration-300 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+ 
+<!-- Sidebar -->
+<aside class="w-full md:w-64 bg-white/90 dark:bg-slate-900/70 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800/80 p-5 flex flex-col justify-between shrink-0 backdrop-blur-xl transition-colors duration-300">
+
+    <div>
+        <!-- Logo -->
+        <div class="flex items-center gap-3 px-2 mb-8">
+            <img src="images/Logo.png" alt="EduManage" class="w-8 h-8 object-contain">
+            <span class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
+                EduManage
+            </span>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="space-y-1.5">
+            <a href="admin-dashboard.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">🏠</span>
+                <span>Home</span>
+            </a>
+
+            <a href="Students.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">👨‍🎓</span>
+                <span>Students</span>
+            </a>
+
+            <a href="Teachers.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">👨‍🏫</span>
+                <span>Teachers</span>
+            </a>
+
+            <a href="Courses.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">📚</span>
+                <span>Courses</span>
+            </a>
+
+            <a href="Enrollments.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">📝</span>
+                <span>Enrollments</span>
+            </a>
+
+            <a href="Departments.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">🏢</span>
+                <span>Departments</span>
+            </a>
+
+            <a href="Settings.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 hover:translate-x-1 text-sm font-medium transition-all">
+                <span class="w-5 text-center">⚙️</span>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Logout -->
+    <div class="pt-6 border-t border-slate-200 dark:border-slate-800/80 mt-6">
+        <a href="Login.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-rose-600 dark:text-red-400 hover:bg-rose-500/10 dark:hover:bg-red-500/10 text-sm font-medium transition-all">
+            <span class="w-5 text-center">🚪</span>
+            <span>Logout</span>
+        </a>
+    </div>
+
+</aside>
+
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 md:p-8 space-y-8 overflow-y-auto">
+
+        <div class="space-y-8">
+
+            <!-- Page Heading + Search + Add Course -->
+            <section class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        Courses Management
+                    </h1>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                        Manage courses, credit hours, departments, and assigned teachers.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+
+                    <!-- Search Controls -->
+                    <div class="flex items-center gap-2 bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 p-1.5 rounded-2xl backdrop-blur-xl">
+
+                        <select
+                            id="courseSearchFilter"
+                            class="bg-transparent text-xs text-slate-700 dark:text-slate-300 font-medium px-2 py-1.5 focus:outline-none border-r border-slate-200 dark:border-slate-800">
+
+                            <option value="name" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                                Course Name
+                            </option>
+
+                            <option value="code" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                                Course Code
+                            </option>
+
+                            <option value="department" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                                Department
+                            </option>
+
+                            <option value="teacher" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                                Teacher
+                            </option>
+                        </select>
+
+                        <input id="courseSearchInput"
+                            type="text"
+                            placeholder="Search..."
+                            class="bg-transparent text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-2 py-1 focus:outline-none w-36 sm:w-48">
+
+                        <button id="searchCoursesBtn" type="button"
+                            class="bg-slate-800 dark:bg-slate-800 hover:bg-slate-700 dark:hover:bg-slate-700 text-white text-xs px-3 py-1.5 rounded-xl font-medium transition-all">
+                            Search
+                        </button>
+                    </div>
+
+                    <!-- Add Course -->
+                    <button id="openCreateModalBtn" type="button" onclick="openCreateModal()"
+                        class="px-4 h-10 rounded-2xl bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-medium text-sm transition-all active:scale-[0.99] flex items-center gap-2 shadow-md shadow-indigo-500/20">
+                        <span class="text-lg leading-none">+</span>
+                        Add Course
+                    </button>
+                </div>
+            </section>
+
+            <!-- Courses Table -->
+            <section class="rounded-3xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 p-6 backdrop-blur-xl space-y-4 shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-xs text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                            <tr>
+                                <th class="pb-3.5 font-medium">Code</th>
+                                <th class="pb-3.5 font-medium">Course Name</th>
+                                <th class="pb-3.5 font-medium">Department</th>
+                                <th class="pb-3.5 font-medium">Teacher</th>
+                                <th class="pb-3.5 font-medium">Credit Hours</th>
+                                <th class="pb-3.5 font-medium">Description</th>
+                                
+                                <th class="pb-3.5 font-medium text-right">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="coursesTableBody"
+                            class="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
+                            <tr>
+                                <td colspan="7" class="py-6 text-center text-slate-500 dark:text-slate-400">
+                                    Loading courses...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Create Course Modal -->
+    <div id="createModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-lg p-6 my-auto space-y-6 shadow-2xl">
+
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Add New Course</h3>
+                <button type="button" onclick="closeCreateModal()"
+                    class="text-slate-400 hover:text-slate-700 dark:hover:text-white">✕</button>
+            </div>
+
+            <form id="createCourseForm" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="createCourseCode" class="modal-label">Course Code</label>
+                        <input id="createCourseCode" name="courseCode" type="text" placeholder="e.g. CS101" class="modal-input">
+                    </div>
+
+                    <div>
+                        <label for="createCreditHours" class="modal-label">Credit Hours</label>
+                        <input id="createCreditHours" name="creditHours" type="number" min="1" max="6" placeholder="3" class="modal-input">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="createCourseName" class="modal-label">Course Name</label>
+                    <input id="createCourseName" name="courseName" type="text" placeholder="e.g. Web Development with ASP.NET Core" class="modal-input">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="createDepartmentId" class="modal-label">Department</label>
+                        <select id="createDepartmentId" name="departmentId" class="modal-input">
+                            <option value="">Select Department</option>
+                            <option value="101">Computer Science</option>
+                            <option value="102">Information Systems</option>
+                            <option value="103">Software Engineering</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="createTeacherId" class="modal-label">Assign Teacher (Optional)</label>
+                        <select id="createTeacherId" name="teacherId" class="modal-input">
+                            <option value="">Unassigned</option>
+                            <option value="3">Teacher 3</option>
+                            <option value="5">Teacher 5</option>
+                            <option value="6">Teacher 6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="createDescription" class="modal-label">Description (Optional)</label>
+                    <textarea id="createDescription" name="description" rows="3"
+                        placeholder="Brief summary of what this course covers..."
+                        class="modal-input h-auto py-3 resize-y"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <button type="button" onclick="closeCreateModal()"
+                        class="px-4 h-10 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="px-4 h-10 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-all shadow-sm">
+                        Save Course
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div id="editModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-lg p-6 my-auto space-y-6 shadow-2xl">
+
+            <input type="hidden" id="editCourseId">
+
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Edit Course</h3>
+                <button type="button" onclick="closeEditModal()"
+                    class="text-slate-400 hover:text-slate-700 dark:hover:text-white">✕</button>
+            </div>
+
+            <form id="editCourseForm" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="editCourseCode" class="modal-label">Course Code</label>
+                        <input id="editCourseCode" type="text" class="modal-input">
+                    </div>
+
+                    <div>
+                        <label for="editCreditHours" class="modal-label">Credit Hours</label>
+                        <input id="editCreditHours" type="number" min="1" max="6" class="modal-input">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="editCourseName" class="modal-label">Course Name</label>
+                    <input id="editCourseName" type="text" class="modal-input">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="editDepartmentId" class="modal-label">Department</label>
+                        <select id="editDepartmentId" class="modal-input">
+                            <option value="101">Computer Science</option>
+                            <option value="102">Information Systems</option>
+                            <option value="103">Software Engineering</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="editTeacherId" class="modal-label">Assign Teacher</label>
+                        <select id="editTeacherId" class="modal-input">
+                            <option value="">Unassigned</option>
+                         <option value="3">Teacher 3</option>
+                         <option value="5">Teacher 5</option>
+                         <option value="6">Teacher 6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="editDescription" class="modal-label">Description</label>
+                    <textarea id="editDescription" rows="3" class="modal-input h-auto py-3 resize-y"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <button type="button" onclick="closeEditModal()"
+                        class="px-4 h-10 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="px-4 h-10 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-all shadow-sm">
+                        Update Course
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Course Details Modal -->
+<div id="detailsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-md p-6 my-auto space-y-6 shadow-2xl">
+
+        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                View Course
+            </h3>
+
+            <button type="button" onclick="closeDetailsModal()"
+                class="text-slate-400 hover:text-slate-700 dark:hover:text-white">✕</button>
+        </div>
+
+        <div class="space-y-3 text-sm">
+
+            <!-- Course Name -->
+            <div class="flex justify-between gap-4 py-2 border-b border-slate-100 dark:border-slate-800/50">
+                <span class="text-slate-500 dark:text-slate-500">Course Name</span>
+                <span id="detailCourseName"
+                    class="font-medium text-slate-800 dark:text-slate-200 text-right"></span>
+            </div>
+
+            <!-- Course Code -->
+            <div class="flex justify-between gap-4 py-2 border-b border-slate-100 dark:border-slate-800/50">
+                <span class="text-slate-500 dark:text-slate-500">Course Code</span>
+                <span id="detailCourseCode"
+                    class="font-mono text-indigo-600 dark:text-indigo-400 font-semibold text-right"></span>
+            </div>
+
+            <!-- Department -->
+            <div class="flex justify-between gap-4 py-2 border-b border-slate-100 dark:border-slate-800/50">
+                <span class="text-slate-500 dark:text-slate-500">Department</span>
+                <span id="detailDepartmentName"
+                    class="text-slate-800 dark:text-slate-200 text-right"></span>
+            </div>
+
+            <!-- Assigned Teacher -->
+            <div class="flex justify-between gap-4 py-2 border-b border-slate-100 dark:border-slate-800/50">
+                <span class="text-slate-500 dark:text-slate-500">Assigned Teacher</span>
+                <span id="detailTeacherName"
+                    class="text-slate-800 dark:text-slate-200 text-right"></span>
+            </div>
+
+            <!-- Credit Hours -->
+            <div class="flex justify-between gap-4 py-2 border-b border-slate-100 dark:border-slate-800/50">
+                <span class="text-slate-500 dark:text-slate-500">Credit Hours</span>
+                <span id="detailCreditHours"
+                    class="text-slate-800 dark:text-slate-200 text-right"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="pt-2">
+                <span class="block text-slate-500 dark:text-slate-500 mb-1">Description</span>
+
+                <p id="detailDescription"
+                    class="text-slate-700 dark:text-slate-300 text-xs leading-relaxed bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800/60"></p>
+            </div>
+        </div>
+
+        <div class="flex justify-end pt-2">
+            <button type="button" onclick="closeDetailsModal()"
+                class="px-4 h-10 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-md p-6 space-y-6 shadow-2xl">
+
+            <input type="hidden" id="deleteCourseId">
+
+            <div class="space-y-2">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Delete Course</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                    Are you sure you want to delete
+                    <span id="deleteCourseName" class="font-semibold text-slate-900 dark:text-white"></span>?
+                    This action will remove the course and its related enrollments.
+                </p>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button type="button" onclick="closeDeleteModal()"
+                    class="px-4 h-10 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+                    Cancel
+                </button>
+                <button type="button" onclick="confirmDelete()"
+                    class="px-4 h-10 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white text-sm font-medium transition-all shadow-sm">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Functions -->
+    <script>
+        function openCreateModal() {
+            const modal = document.getElementById('createModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCreateModal() {
+            const modal = document.getElementById('createModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function openEditModal(id, code, name, credits, deptId, teacherId, description) {
+            document.getElementById('editCourseId').value = id;
+            document.getElementById('editCourseCode').value = code;
+            document.getElementById('editCourseName').value = name;
+            document.getElementById('editCreditHours').value = credits;
+            document.getElementById('editDepartmentId').value = deptId;
+            document.getElementById('editTeacherId').value = teacherId || '';
+            document.getElementById('editDescription').value = description || '';
+
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function openDetailsModal(code, name, dept, teacher, credits, description) {
+            document.getElementById('detailCourseCode').innerText = code || '';
+            document.getElementById('detailCourseName').innerText = name || 'Course Details';
+            document.getElementById('detailDepartmentName').innerText = dept || 'Not assigned';
+            document.getElementById('detailTeacherName').innerText = teacher || 'Unassigned';
+            document.getElementById('detailCreditHours').innerText = credits ? credits + ' hrs' : '—';
+            document.getElementById('detailDescription').innerText = description || 'No description provided.';
+
+            const modal = document.getElementById('detailsModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDetailsModal() {
+            const modal = document.getElementById('detailsModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function openDeleteModal(id, name) {
+            document.getElementById('deleteCourseId').value = id;
+            document.getElementById('deleteCourseName').innerText = name || '';
+
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function confirmDelete() {
+            const id = document.getElementById('deleteCourseId').value;
+            console.log('Deleting course with ID:', id);
+            closeDeleteModal();
+        }
+
+        // Close modal when clicking the backdrop
+        ['createModal', 'editModal', 'detailsModal', 'deleteModal'].forEach(function (modalId) {
+            const modal = document.getElementById(modalId);
+
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+        });
+    </script>
+
+    <!-- Application Scripts -->
+    <script src="JavaScript/auth.js"></script>
+    <script src="JavaScript/courses.js"></script>
+    <script src="./javascript/logout.js"></script>
+
+</body>
+</html>

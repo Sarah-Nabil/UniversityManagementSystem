@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard - EduManage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style> body { font-family: 'Geist', sans-serif; } </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen p-4 md:p-8 antialiased">
+
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- Welcome Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
+            Welcome back, <span id="studentName">Sara Ahmed</span> 👋
+          </h1>
+          <span id="studentStatus" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Active Student
+          </span>
+        </div>
+        <p class="text-sm text-zinc-400 mt-1">Student Portal & Personal Profile Overview</p>
+      </div>
+
+      <button type="button" class="h-9 px-4 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-xs font-medium text-zinc-300 transition-all">
+        Edit Profile
+      </button>
+    </div>
+
+    <!-- Quick Stats Summary -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-xl">
+        <span class="text-xs text-zinc-500 font-medium">Student Code</span>
+        <p id="studentCode" class="text-lg font-mono font-bold text-white mt-1">#STU-2026-01</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-xl">
+        <span class="text-xs text-zinc-500 font-medium">Department</span>
+        <p id="departmentName" class="text-lg font-bold text-white mt-1">Computer Science</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-xl">
+        <span class="text-xs text-zinc-500 font-medium">Academic Level</span>
+        <p id="studentLevel" class="text-lg font-bold text-white mt-1">Level 3</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 backdrop-blur-xl">
+        <span class="text-xs text-zinc-500 font-medium">Enrollment Date</span>
+        <p id="enrollmentDate" class="text-lg font-bold text-white mt-1">2023-09-15</p>
+      </div>
+    </div>
+
+    <!-- StudentDetailsDto Full Information Card -->
+    <div class="rounded-3xl bg-zinc-900/60 border border-zinc-800/80 p-6 md:p-8 backdrop-blur-xl space-y-6">
+      <h2 class="text-lg font-bold text-white border-b border-zinc-800 pb-3">Personal & Academic Details</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">First Name</span>
+          <p id="firstName" class="font-medium text-zinc-200">Sara</p>
+        </div>
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">Last Name</span>
+          <p id="lastName" class="font-medium text-zinc-200">Ahmed</p>
+        </div>
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">National ID</span>
+          <p id="nationalId" class="font-mono text-zinc-200">30101012345678</p>
+        </div>
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">Email Address</span>
+          <p id="email" class="text-zinc-200">sara.ahmed@example.com</p>
+        </div>
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">Phone Number</span>
+          <p id="phone" class="text-zinc-200">+20 123 456 7890</p>
+        </div>
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">Gender</span>
+          <p id="gender" class="text-zinc-200">Female</p>
+        </div>
+        <div>
+          <span class="text-xs text-zinc-500 block mb-1">Date of Birth</span>
+          <p id="dateOfBirth" class="text-zinc-200">2003-05-12</p>
+        </div>
+        <div class="md:col-span-2">
+          <span class="text-xs text-zinc-500 block mb-1">Home Address</span>
+          <p id="address" class="text-zinc-200">Cairo, Egypt</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
